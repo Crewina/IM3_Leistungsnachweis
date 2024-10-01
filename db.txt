@@ -1,0 +1,6 @@
+Datenbank Host: etl.benhan51.dbs.hostpoint.internal
+Datenbank Name: benhan51_etl
+Datenbank Username: benhan51_etl
+Datenbank Passwort: MMP2024_fhgr_etl_zuerich
+
+Datenbank Tabelle: Radio_SRF_1
