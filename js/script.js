@@ -1,36 +1,3 @@
-// Funktion, um SRF-Daten von der API zu fetchen
-async function fetchSrfData() {
-    try {
-        // Hier die URL der PHP-Datei einfügen, die die Daten als JSON bereitstellt
-        const response = await fetch('https://etl.mmp.li/Radio_SRF_1/etl/unload.php');
-
-        // Prüfen, ob der Fetch erfolgreich war
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        // JSON-Daten von der API abrufen
-        const data = await response.json();
-
-        // SRF-Daten verarbeiten und anzeigen (Beispiel in der Konsole)
-        console.log("SRF-Daten:", data);
-
-        // Hier kann weiteres DOM-Manipulation oder UI-Updates basierend auf den Daten stattfinden
-
-    } catch (error) {
-        // Fehlerbehandlung
-        console.error('Fehler beim Abrufen der SRF-Daten:', error);
-    }
-}
-
-// Diese Funktion wird beim Laden der Seite ausgeführt, um die Daten zu fetchen
-window.addEventListener('DOMContentLoaded', () => {
-    fetchSrfData();
-});
-
-
-
-
 document.addEventListener("DOMContentLoaded", async function () {
     const quizContainer = document.getElementById('quiz-container');
     let currentQuestion = 0;
@@ -40,28 +7,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     console.log(question1Data);
 
-
-    // const questions = [
-    //     question1Data,
-    //     {
-    //         question: "Welcher Song wird seit dem 08.10.2024 am meisten um 8 Uhr morgens auf SRF 3 gespielt?",
-    //         options: ["11:11", "15:32", "23:20", "18:10"],
-    //         correct: 3,
-    //         evaluationText: "Zu dieser Tageszeit wird Flowers von Miley Cyrus rund 20 Mal abgespielt."
-    //     },
-    //     {
-    //         question: "Wie lange ist die durchschnittliche Playtime von Liedern auf SRF 3?",
-    //         options: ["11:11", "15:32", "23:20", "18:10"],
-    //         correct: 2,
-    //         evaluationText: "Die durchschnittliche Playtime von Liedern auf SRF 3 beträgt 23 Minuten und 20 Sekunden."
-    //     },
-    //     {
-    //         question: "Werden seit dem 08.10.2024 mehr Klassiker (älter als 2010) oder Trends im SRF 3 gespielt?",
-    //         options: ["11:11", "15:32", "23:20", "18:10"],
-    //         correct: 0,
-    //         evaluationText: "Seit dem 08.10.2024 wird Flowers von Miley Cyrus am häufigsten auf SRF 3 gespielt."
-    //     }
-    // ];
 
     const questions = question1Data;
 
