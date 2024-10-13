@@ -3,7 +3,7 @@ async function fetchSrfData() {
     try {
         // Hier die URL der PHP-Datei einfügen, die die Daten als JSON bereitstellt
         const response = await fetch('https://etl.mmp.li/Radio_SRF_1/etl/unload.php');
-        
+
         // Prüfen, ob der Fetch erfolgreich war
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -31,39 +31,39 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function () {
     const quizContainer = document.getElementById('quiz-container');
     let currentQuestion = 0;
     let score = 0;
 
-    const questions = [
-        {
-            question: "Werden auf SRF 3 seit dem 08.10.2024 mehr Klassiker oder Trends gespielt?",
-            options: ["11:11", "15:32", "23:20", "18:10"],
-            correct: 1,
-            evaluationText: "Seit dem 08.10.2024 werden auf SRF 3 mehr Trends abgespielt."
-        },
-        {
-            question: "Zu welcher Tageszeit wird dieser Song von [Künstler*in] am häufigsten auf SRF 3 gespielt?",
-            options: ["11:11", "15:32", "23:20", "18:10"],
-            correct: 3,
-            evaluationText: "Zu dieser Tageszeit wird Flowers von Miley Cyrus rund 20 Mal abgespielt."
-        },
-        {
-            question: "Wie lange ist die durchschnittliche Playtime von Liedern auf SRF 3?",
-            options: ["11:11", "15:32", "23:20", "18:10"],
-            correct: 2,
-            evaluationText: "Die durchschnittliche Playtime von Liedern auf SRF 3 beträgt 23 Minuten und 20 Sekunden."
-        },
-        {
-            question: "Welcher Künstler mit welchem Song wird seit dem 08.10.2024 am meisten auf SRF 3 gespielt?",
-            options: ["11:11", "15:32", "23:20", "18:10"],
-            correct: 0,
-            evaluationText: "Seit dem 08.10.2024 wird Flowers von Miley Cyrus am häufigsten auf SRF 3 gespielt."
-        }
-    ];
+    const question1Data = await (await fetch("https://etl.mmp.li/Radio_SRF_1/etl/questionnaire.php")).json()
+
+    console.log(question1Data);
+
+
+    // const questions = [
+    //     question1Data,
+    //     {
+    //         question: "Welcher Song wird seit dem 08.10.2024 am meisten um 8 Uhr morgens auf SRF 3 gespielt?",
+    //         options: ["11:11", "15:32", "23:20", "18:10"],
+    //         correct: 3,
+    //         evaluationText: "Zu dieser Tageszeit wird Flowers von Miley Cyrus rund 20 Mal abgespielt."
+    //     },
+    //     {
+    //         question: "Wie lange ist die durchschnittliche Playtime von Liedern auf SRF 3?",
+    //         options: ["11:11", "15:32", "23:20", "18:10"],
+    //         correct: 2,
+    //         evaluationText: "Die durchschnittliche Playtime von Liedern auf SRF 3 beträgt 23 Minuten und 20 Sekunden."
+    //     },
+    //     {
+    //         question: "Werden seit dem 08.10.2024 mehr Klassiker (älter als 2010) oder Trends im SRF 3 gespielt?",
+    //         options: ["11:11", "15:32", "23:20", "18:10"],
+    //         correct: 0,
+    //         evaluationText: "Seit dem 08.10.2024 wird Flowers von Miley Cyrus am häufigsten auf SRF 3 gespielt."
+    //     }
+    // ];
+
+    const questions = question1Data;
 
     function loadQuestion(index) {
         const questionObj = questions[index];
@@ -72,8 +72,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 <h2>${questionObj.question}</h2>
                 <div class="answers">
                     ${questionObj.options.map((option, idx) => `
-                        <div class="answer-option" data-index="${idx}">
-                            ${option}
+                        <div>
+                            <input type="radio" id="option-${idx}" name="answer" value="${idx}">
+                            <label for="option-${idx}">${option}</label>
                         </div>
                     `).join('')}
                 </div>
@@ -85,20 +86,11 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
         quizContainer.innerHTML = questionHTML;
 
-        // Eventlistener für Multiple-Choice-Antworten
-        const answerOptions = document.querySelectorAll('.answer-option');
-        answerOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                answerOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-            });
-        });
-
-        // Eventlistener für Auswerten-Button
-        document.getElementById('evaluate').addEventListener('click', function() {
-            const selectedOption = document.querySelector('.answer-option.selected');
+        // Eventlistener für den Auswerten-Button
+        document.getElementById('evaluate').addEventListener('click', function () {
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
             if (selectedOption) {
-                const selectedAnswerIndex = parseInt(selectedOption.getAttribute('data-index'));
+                const selectedAnswerIndex = parseInt(selectedOption.value);
                 showEvaluation(index, selectedAnswerIndex === questionObj.correct);
             } else {
                 alert('Bitte eine Antwort auswählen.');
@@ -106,9 +98,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-
     function showEvaluation(index, isCorrect) {
         const questionObj = questions[index];
+        if (isCorrect) {
+            score++;  // Punktzahl aktualisieren
+        }
         const evaluationHTML = `
             <div class="question-container">
                 <p>${questionObj.evaluationText}</p>
@@ -121,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
         quizContainer.innerHTML = evaluationHTML;
 
-        document.getElementById('next-question').addEventListener('click', function() {
+        document.getElementById('next-question').addEventListener('click', function () {
             if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
                 loadQuestion(currentQuestion);
@@ -143,7 +137,9 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         `;
 
-        document.getElementById('restart').addEventListener('click', function() {
+
+
+        document.getElementById('restart').addEventListener('click', function () {
             currentQuestion = 0;
             score = 0;
             loadQuestion(currentQuestion);
@@ -152,5 +148,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
     loadQuestion(currentQuestion);
 });
-
-

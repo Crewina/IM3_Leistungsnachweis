@@ -8,7 +8,7 @@ try {
     $pdo = new PDO($dsn, $username, $password, $options);
     $cities = ['Bern', 'Chur', 'Zürich'];
     $results = [];
-
+§
     $stmt = $pdo->prepare("SELECT * FROM songs_SRF");
     $stmt->execute(); // Führt die vorbereitete Anfrage mit der Stadt als Parameter aus
     $results = $stmt->fetchAll(); // Speichert die Ergebnisse im Array $results
