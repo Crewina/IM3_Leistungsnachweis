@@ -119,23 +119,38 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function showResult() {
+        // Berechne die Anzahl der korrekten Antworten (maximal 3)
+        const maxScore = 3;
+        const resultImages = [];
+    
+        // Füge für jede der 3 möglichen Punkte einen CD-Platz hinzu (cdl.png für richtig, cd_null.png für falsch)
+        for (let i = 0; i < maxScore; i++) {
+            if (i < score) {
+                resultImages.push('<img src="img/cd_null.png" alt="Schallplatte" class="cd-image">');
+            } else {
+                resultImages.push('<img src="img/cdl.png" alt="Leere Schallplatte" class="cd-image">');
+            }
+        }
+    
+        // Erstelle das HTML mit den eingebetteten Schallplattenbildern
         quizContainer.innerHTML = `
             <div class="question-container">
                 <h2>Dein Ergebnis:</h2>
                 <p>Du hast ${score} von ${questions.length} richtig beantwortet.</p>
                 <div class="result-graphic">
-                    <img src="img/result_graphic.png" alt="Ergebnis Grafik" />
+                    ${resultImages.join('')}
                 </div>
                 <button id="restart">Von vorne beginnen</button>
             </div>
         `;
-
+    
+        // Eventlistener für den Restart-Button
         document.getElementById('restart').addEventListener('click', function () {
             currentQuestion = 0;
             score = 0;
             loadQuestion(currentQuestion);
         });
-    }
+    }    
 
     loadQuestion(currentQuestion);
 });

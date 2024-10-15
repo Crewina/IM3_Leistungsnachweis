@@ -1,4 +1,5 @@
-/* Grundlegendes Layout und Styles */
+/* Mobile-first styles for small screens */
+
 body {
     font-family: Arial, sans-serif;
     color: white;
@@ -7,7 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    min-height: 100vh; /* Ensure the body takes full viewport height */
     background-image: url("../img/gradient.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -19,48 +20,42 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40%; 
-    margin: 0 auto; 
     padding: 20px;
     border-radius: 10px;
+    margin: 0 auto;
+    width: 90%; /* Full width on small screens */
 }
 
 footer {
     background-color: #36009C;
     color: white;
     text-align: center;
-    padding: 1em 0;
-    position: fixed; /* Fixiert den Footer am Bildschirmrand */
-    bottom: 0; /* Platzierung am unteren Rand */
-    width: 100%; /* Stellt sicher, dass der Footer die gesamte Breite abdeckt */
-    z-index: 100; /* Damit der Footer immer sichtbar bleibt */
+    padding: 1em;
+    width: 100%;
+    position: relative; /* Footer is not fixed for small screens */
 }
 
 main {
     flex: 1;
     padding: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-h2{
+h2 {
     color: white;
+    text-align: center;
 }
 
-/* Multiple-Choice-Fragen */
 .question-container {
-    max-width: 40%;
+    width: 90%; /* Full width on mobile */
     background-color: #A7A3EFCC;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-.question-container h2 {
-    font-size: 1.5em;
-    margin: 1em;
 }
 
 .answers {
@@ -78,28 +73,12 @@ h2{
     cursor: pointer;
 }
 
-button{
-    background-color:white;
-    border: none;
-    color: #D9D9D9;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 15px;
-}
-
-button:hover {
-    background-color: #D9D9D9; /* Green */
-    color: white;
-  }
-
-/* Verstecke das Standard Radio Button */
+/* Hide the default radio button */
 .answers input[type="radio"] {
     display: none;
 }
 
-/* Erstelle einen benutzerdefinierten Radio Button */
+/* Custom radio button */
 .answers label:before {
     content: "";
     display: inline-block;
@@ -112,15 +91,42 @@ button:hover {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Wenn das Radio-Input ausgewählt ist */
 .answers input[type="radio"]:checked + label:before {
     background-color: white;
     border-color: white;
 }
 
-/* Balkendiagramm-Platzhalter */
+button {
+    background-color: white;
+    border: none;
+    color: #D9D9D9;
+    padding: 15px 32px;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #D9D9D9;
+    color: white;
+}
+
+.result-graphic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cd-image {
+    width: 80px;
+    height: auto;
+    padding: 15px 0;
+}
+
 .chart-container {
-    max-width: 600px;
+    width: 100%; /* Full width on small screens */
     margin-top: 20px;
     text-align: center;
 }
@@ -135,10 +141,37 @@ button:hover {
     font-size: 1.2em;
 }
 
-
-/* Responsive Styles */
-@media only screen and (max-width: 768px) {
+/* Medium screens (e.g., tablets) */
+@media (min-width: 600px) {
     .question-container {
-        width: 90%;
+        width: 80%;
+    }
+
+    .cd-image {
+        width: 100px;
+    }
+
+    header {
+        width: 60%;
+    }
+}
+
+/* Large screens (e.g., desktops) */
+@media (min-width: 1024px) {
+    header {
+        width: 40%;
+    }
+
+    .question-container {
+        width: 40%;
+    }
+
+    footer {
+        position: fixed; /* Fixed footer for larger screens */
+        bottom: 0;
+    }
+
+    .chart-container {
+        max-width: 600px;
     }
 }
