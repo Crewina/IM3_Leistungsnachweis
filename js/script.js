@@ -58,27 +58,40 @@ document.addEventListener("DOMContentLoaded", async function () {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: '# Anzahl der Nennungen',
+                    label: '# Anzahl',
                     data: data,
                     backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
+                        '#273169',
+                        '#A7A3EF',
+                        '#F1D7ED',
+                        '#F9FFAD'
                     ],
                     borderColor: [
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 99, 132, 1)'
+                        '#273169',
+                        '#A7A3EF',
+                        '#F1D7ED',
+                        '#F9FFAD'
                     ],
                     borderWidth: 1
                 }]
             },
             options: {
                 scales: {
+                    x: {
+                        ticks: {
+                            color: '#FFFFFF' // Farbe für die x-Achsen-Beschriftung (HEX oder RGB möglich)
+                        }
+                    },
                     y: {
+                        ticks: {
+                            color: '#FFFFFF' // Farbe für die y-Achsen-Beschriftung
+                        },
                         beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Ausblenden der Legende
                     }
                 }
             }
@@ -93,21 +106,27 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (isCorrect) {
             score++;  // Punktzahl aktualisieren
         }
+    
+        // Bestimme die CSS-Klasse basierend auf dem Ergebnis
+        const resultClass = isCorrect ? 'correct' : 'incorrect';
+    
         const evaluationHTML = `
             <div class="question-container">
+                <!-- Das Resultat-Label jetzt über dem Diagramm -->
+                <p class="${resultClass}">${isCorrect ? "Richtig!" : "Falsch!"}</p>
                 <p>${questionObj.evaluationText}</p>
                 <div class="chart-container">
                     <canvas id="chart-${index}"></canvas>
                 </div>
-                <p>${isCorrect ? "Richtig!" : "Falsch!"}</p>
                 <button id="next-question">Nächste Frage</button>
             </div>
         `;
+        
         quizContainer.innerHTML = evaluationHTML;
-
+    
         // Chart rendern und das Diagramm sichtbar machen
         renderChart(index, questionObj.result);
-
+    
         document.getElementById('next-question').addEventListener('click', function () {
             if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
@@ -117,6 +136,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         });
     }
+    
+    
 
     function showResult() {
         // Berechne die Anzahl der korrekten Antworten (maximal 3)
@@ -126,9 +147,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Füge für jede der 3 möglichen Punkte einen CD-Platz hinzu (cdl.png für richtig, cd_null.png für falsch)
         for (let i = 0; i < maxScore; i++) {
             if (i < score) {
-                resultImages.push('<img src="img/cd_null.png" alt="Schallplatte" class="cd-image">');
+                resultImages.push('<img src="img/cd.png" alt="Schallplatte" class="cd-image">');
             } else {
-                resultImages.push('<img src="img/cdl.png" alt="Leere Schallplatte" class="cd-image">');
+                resultImages.push('<img src="img/cd_null.png" alt="Leere Schallplatte" class="cd-image">');
             }
         }
     

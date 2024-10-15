@@ -23,7 +23,7 @@ header {
     padding: 20px;
     border-radius: 10px;
     margin: 0 auto;
-    width: 90%; /* Full width on small screens */
+    width: 90%; 
 }
 
 footer {
@@ -49,6 +49,31 @@ h2 {
     text-align: center;
 }
 
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.soundwave {
+    position: absolute;
+    right: -1%; /* Verschiebt das Bild nach rechts außerhalb des Headers */
+    top: 0; /* Positioniert das Bild am oberen Rand des Headers */
+    height: 20%; 
+    width: auto;
+    z-index: 1; /* Stellt sicher, dass das Bild vor dem Header-Inhalt liegt */
+}
+
+.soundwave-down {
+    position: absolute;
+    bottom: 0;
+    left: -1%; /* Abstand von der linken Seite */
+    height: 250%; /* Größe der Soundwave */
+    width: auto;
+    z-index: 1;
+}
+
 .question-container {
     width: 90%; /* Full width on mobile */
     background-color: #A7A3EFCC;
@@ -71,6 +96,11 @@ h2 {
     color: white;
     margin-bottom: 15px;
     cursor: pointer;
+}
+
+.soundwave{
+    float: left;
+    margin-left: 0.5em;
 }
 
 /* Hide the default radio button */
@@ -131,15 +161,24 @@ button:hover {
     text-align: center;
 }
 
-.chart-placeholder {
-    height: 200px;
-    background-color: #e1e1e1;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2em;
+.correct {
+    background-color: #28a745; /* Grün für richtig */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
 }
+
+.incorrect {
+    background-color: #dc3545; /* Rot für falsch */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+}
+
 
 /* Medium screens (e.g., tablets) */
 @media (min-width: 600px) {
