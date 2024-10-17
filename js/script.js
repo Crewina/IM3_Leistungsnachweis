@@ -109,9 +109,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     
         // Bestimme die CSS-Klasse basierend auf dem Ergebnis
         const resultClass = isCorrect ? 'correct' : 'incorrect';
+
+        remove
     
         // Erstelle die Progress-Bar HTML dynamisch basierend auf der aktuellen Frage
-        const totalQuestions = 4; // Anzahl der Fragen, passe dies nach Bedarf an
+        const totalQuestions = 3; // Anzahl der Fragen, passe dies nach Bedarf an
         let progressBarHTML = '<div class="progress-bar">';
         
         for (let i = 0; i < totalQuestions; i++) {
@@ -141,7 +143,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         quizContainer.innerHTML = evaluationHTML;
     
         // Füge die Progress-Bar unter dem Fragecontainer hinzu
-        quizContainer.insertAdjacentHTML('afterend', progressBarHTML);
+        quizContainer.insertAdjacentHTML('beforerend', progressBarHTML);
+
+        const oldProgress= document.getElementsByClassName ('progress-bar')[1];
+        quizContainer.remove(oldProgress);
     
         // Chart rendern und das Diagramm sichtbar machen
         renderChart(index, questionObj.result);
