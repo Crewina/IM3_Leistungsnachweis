@@ -22,12 +22,14 @@ header {
     align-items: center;
     padding: 20px;
     border-radius: 10px;
-    margin: 0 auto;
-    width: 90%; 
+    margin: 3% auto;
+    margin-bottom: 0;
+    width: 80%; 
+    
 }
 
 footer {
-    background-color: red;
+    background-color: #36009C;
     color: white;
     text-align: center;
     padding: 1em;
@@ -40,8 +42,10 @@ main {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    margin: 2% auto;
+    margin-bottom: 80px;
+    width: 80%;
 }
 
 h2 {
@@ -51,7 +55,7 @@ h2 {
 
 .header-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
 }
@@ -59,9 +63,8 @@ h2 {
 .soundwave {
     position: absolute;
     right: -1%; /* Verschiebt das Bild nach rechts außerhalb des Headers */
-    top: 0; /* Positioniert das Bild am oberen Rand des Headers */
-    height: 20%; 
-    width: auto;
+    top: 0; /* Positioniert das Bild am oberen Rand des Headers */ 
+    width: 20%;
     z-index: 1; /* Stellt sicher, dass das Bild vor dem Header-Inhalt liegt */
 }
 
@@ -69,13 +72,12 @@ h2 {
     position: absolute;
     bottom: 0;
     left: -1%; /* Abstand von der linken Seite */
-    height: 250%; /* Größe der Soundwave */
-    width: auto;
+    width: 20%;
     z-index: 1;
 }
 
 .question-container {
-    width: 90%; /* Full width on mobile */
+    width: 100%; /* Full width on mobile */
     background-color: #A7A3EFCC;
     padding: 20px;
     border-radius: 10px;
@@ -96,11 +98,6 @@ h2 {
     color: white;
     margin-bottom: 15px;
     cursor: pointer;
-}
-
-.soundwave{
-    float: left;
-    margin-left: 0.5em;
 }
 
 /* Hide the default radio button */
@@ -129,15 +126,16 @@ h2 {
 button {
     background-color: white;
     border: none;
-    color: #D9D9D9;
-    padding: 15px 32px;
+    color: #273169;
+    padding: 10px 32px;
+    margin-top: 2%;
     border-radius: 15px;
     cursor: pointer;
     text-align: center;
 }
 
 button:hover {
-    background-color: #D9D9D9;
+    background-color: #273169;
     color: white;
 }
 
@@ -157,7 +155,7 @@ button:hover {
 
 .chart-container {
     width: 100%; /* Full width on small screens */
-    margin-top: 20px;
+    margin: 20px auto;
     text-align: center;
 }
 
@@ -179,10 +177,9 @@ button:hover {
     margin-top: 10px;
 }
 
-
 /* Medium screens (e.g., tablets) */
 @media (min-width: 600px) {
-    .question-container {
+    main {
         width: 80%;
     }
 
@@ -191,18 +188,18 @@ button:hover {
     }
 
     header {
-        width: 60%;
+        width: 80%;
     }
 }
 
 /* Large screens (e.g., desktops) */
 @media (min-width: 1024px) {
     header {
-        width: 40%;
+        width: 60%;
     }
 
-    .question-container {
-        width: 40%;
+    main {
+        width: 60%;
     }
 
     footer {

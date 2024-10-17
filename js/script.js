@@ -2,18 +2,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     const quizContainer = document.getElementById('quiz-container');
     let currentQuestion = 0;
     let score = 0;
-
     const question1Data = await (await fetch("https://etl.mmp.li/Radio_SRF_1/etl/questionnaire.php")).json();
     const questions = question1Data;
-
     function loadQuestion(index) {
         const questionObj = questions[index];
-
         // Optionen zufällig mischen
         const shuffledOptions = questionObj.options
             .map((option, idx) => ({ option, idx })) // Verbinde Optionen mit ihren Indizes
             .sort(() => Math.random() - 0.5); // Zufällig sortieren
-
         const questionHTML = `
             <div class="question-container">
                 <h2>${questionObj.question}</h2>
@@ -33,7 +29,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             </div>
         `;
         quizContainer.innerHTML = questionHTML;
-
         // Eventlistener für den Auswerten-Button
         document.getElementById('evaluate').addEventListener('click', function () {
             const selectedOption = document.querySelector('input[name="answer"]:checked');
@@ -46,13 +41,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         });
     }
-
     function renderChart(index, results) {
         const chartContainer = document.querySelector(`.chart-container`); // Hole den Container des Diagramms
         const ctx = document.getElementById(`chart-${index}`).getContext('2d');
         const labels = results.map(result => result.label);
         const data = results.map(result => result.amount);
-
         new Chart(ctx, {
             type: 'bar',
             data: {
@@ -84,7 +77,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                     },
                     y: {
                         ticks: {
-                            color: '#FFFFFF' // Farbe für die y-Achsen-Beschriftung
+                            color: '#FFFFFF', // Farbe für die y-Achsen-Beschriftung
+                            callback: function(value) {if (value % 1 === 0) {return value;}}
+
                         },
                         beginAtZero: true
                     }
@@ -96,36 +91,24 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             }
         });
-
         // Mache das Diagramm sichtbar
         chartContainer.style.display = 'block';
     }
-
     function showEvaluation(index, isCorrect) {
         const questionObj = questions[index];
         if (isCorrect) {
             score++;  // Punktzahl aktualisieren
         }
+
+        let buttonText = 'Nächste Frage';
+
+        if (currentQuestion === questions.length - 1) {
+            buttonText = 'Ergebnis anzeigen';
+        }
     
         // Bestimme die CSS-Klasse basierend auf dem Ergebnis
         const resultClass = isCorrect ? 'correct' : 'incorrect';
 
-        remove
-    
-        // Erstelle die Progress-Bar HTML dynamisch basierend auf der aktuellen Frage
-        const totalQuestions = 3; // Anzahl der Fragen, passe dies nach Bedarf an
-        let progressBarHTML = '<div class="progress-bar">';
-        
-        for (let i = 0; i < totalQuestions; i++) {
-            if (i === index) {
-                progressBarHTML += `<span class="step active">${i + 1}</span>`;
-            } else {
-                progressBarHTML += `<span class="step">${i + 1}</span>`;
-            }
-        }
-    
-        progressBarHTML += '</div>';
-    
         // Fragecontainer HTML mit dem Ergebnis und dem Diagramm
         const evaluationHTML = `
             <div class="question-container">
@@ -135,22 +118,17 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <div class="chart-container">
                     <canvas id="chart-${index}"></canvas>
                 </div>
-                <button id="next-question">Nächste Frage</button>
+                <button id="next-question">${buttonText}</button>
             </div>
         `;
-    
+
+
         // Setze den HTML-Inhalt für das Quiz
         quizContainer.innerHTML = evaluationHTML;
-    
-        // Füge die Progress-Bar unter dem Fragecontainer hinzu
-        quizContainer.insertAdjacentHTML('beforerend', progressBarHTML);
 
-        const oldProgress= document.getElementsByClassName ('progress-bar')[1];
-        quizContainer.remove(oldProgress);
-    
         // Chart rendern und das Diagramm sichtbar machen
         renderChart(index, questionObj.result);
-    
+
         document.getElementById('next-question').addEventListener('click', function () {
             if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
@@ -160,8 +138,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         });
     }
-    
-    
+
     
     function showResult() {
         // Berechne die Anzahl der korrekten Antworten (maximal 3)
@@ -196,6 +173,5 @@ document.addEventListener("DOMContentLoaded", async function () {
             loadQuestion(currentQuestion);
         });
     }    
-
     loadQuestion(currentQuestion);
 });
