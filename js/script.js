@@ -110,6 +110,21 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Bestimme die CSS-Klasse basierend auf dem Ergebnis
         const resultClass = isCorrect ? 'correct' : 'incorrect';
     
+        // Erstelle die Progress-Bar HTML dynamisch basierend auf der aktuellen Frage
+        const totalQuestions = 4; // Anzahl der Fragen, passe dies nach Bedarf an
+        let progressBarHTML = '<div class="progress-bar">';
+        
+        for (let i = 0; i < totalQuestions; i++) {
+            if (i === index) {
+                progressBarHTML += `<span class="step active">${i + 1}</span>`;
+            } else {
+                progressBarHTML += `<span class="step">${i + 1}</span>`;
+            }
+        }
+    
+        progressBarHTML += '</div>';
+    
+        // Fragecontainer HTML mit dem Ergebnis und dem Diagramm
         const evaluationHTML = `
             <div class="question-container">
                 <!-- Das Resultat-Label jetzt über dem Diagramm -->
@@ -121,8 +136,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <button id="next-question">Nächste Frage</button>
             </div>
         `;
-        
+    
+        // Setze den HTML-Inhalt für das Quiz
         quizContainer.innerHTML = evaluationHTML;
+    
+        // Füge die Progress-Bar unter dem Fragecontainer hinzu
+        quizContainer.insertAdjacentHTML('afterend', progressBarHTML);
     
         // Chart rendern und das Diagramm sichtbar machen
         renderChart(index, questionObj.result);
@@ -138,7 +157,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     
     
-
+    
     function showResult() {
         // Berechne die Anzahl der korrekten Antworten (maximal 3)
         const maxScore = 3;
