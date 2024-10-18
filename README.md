@@ -40,9 +40,6 @@ Um dem Nutzer zu zeigen, was ihn bei unserem Spiel erwartet, wollten wir ursprü
 
 ## Benutzte Ressourcen
 
-
-Hier ist eine überarbeitete und flüssiger formulierte Version des Textes:
-
 Als wir schliesslich genau wussten, was wir realisieren wollten, die Dateien korrekt verknüpft waren und die Datenbank eingerichtet war, half uns ChatGPT dabei, ein stabiles Grundgerüst aufzubauen. Besonders bei neuen Elementen, wie der Erstellung von HTML-Elementen mittels JavaScript, war diese Unterstützung für uns sehr wertvoll. Als es jedoch darum ging, die Daten aus der Datenbank zu holen und das Spiel damit zu gestalten, führte kein Weg daran vorbei, den Code selbst zu schreiben. So entstand das File questionnaire.php, das eine solide Grundlage schuf und dafür sorgte, dass unser Spiel zum ersten Mal wirklich funktionierte.
 
 Danach konzentrierten wir uns darauf, kleinere Schönheitsfehler zu beheben und den Code weiter zu optimieren. Zunächst versuchten wir, diese Anpassungen eigenständig vorzunehmen. Wenn uns dies nicht gelang, wandten wir uns an ChatGPT, der uns oft zur gewünschten Lösung führte. Bei einigen Problemen, wie der Umsetzung der Progress-Bar, konnte uns jedoch auch ChatGPT nicht weiterhelfen. Trotz vieler Versuche und verschiedener Ansätze mussten wir uns letztlich geschlagen geben und verzichteten auf die Progress-Bar.
