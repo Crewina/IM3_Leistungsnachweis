@@ -1,11 +1,17 @@
 # IM3_Leistungsnachweis
+
+Projektdokumentation Interaktive Medien 3
+
+Corina Engel corina.engel@stud.fhgr.ch & Tanja Julmy tanja.julmy@stud.fhgr.ch
+
+
  
- Kurzbeschreibung des Projekts
+## Kurzbeschreibung des Projekts
 
 Auf unserer Webseite ermöglichen wir es den Nutzern, spielerisch durch die Datenbank der zuletzt gespielten Lieder auf SRF 3 zu navigieren. Dabei beantwortet der User drei aufeinander aufbauende Multiple-Choice-Fragen. Die Antwortmöglichkeiten setzen sich jeweils aus den Top 4 der Datenbank zusammen. Die Antworten werden direkt im Anschluss mit einem dynamischen Balkendiagramm visualisiert. Am Ende erhält der User ein Gesamtergebnis, das in Form von erreichten CDs präsentiert wird. Der Start der Datenerfassung beginnt am 8. Oktober 2024. Stündlich werden die neuesten Daten aus der SRF 3 API abgerufen und in unserer Datenbank gespeichert. Dadurch können sich die Antwortmöglichkeiten kontinuierlich ändern.
  
 
- Learnings 
+## Learnings 
 
 Wir haben gelernt, wie einfach es ist, APIs von öffentlich zugänglichen Webseiten zu generieren. Dies lässt sich über das "Untersuchen"-Tool und den Reiter "Netzwerk" im Browser ermitteln. Dort wird nach der passenden Datei gesucht. Ob es sich um die richtige Datei handelt, lässt sich überprüfen, indem die URL aus dem Header kopiert und überprüft wird, ob sie die gewünschten Daten enthält. Ist dies der Fall, kann die API verwendet werden.
  
@@ -14,7 +20,7 @@ Erst spät bemerkten wir, dass unsere gesammelten Daten nicht ausreichten, um al
 Ursprünglich hatten wir die Idee, für jede Frage eine separate Unterseite im HTML zu erstellen. Als wir diese Idee mit Lea besprachen, gab sie uns den Tipp, die Inhalte generisch mit JavaScript im HTML erstellen zu lassen. Dadurch entfiel die aufwendige Arbeit mit mehreren HTML-Dateien. Dieses Vorgehen war zwar sehr nützlich, machte jedoch auf der anderen Seite den Code zunächst etwas schwerer verständlich und unübersichtlicher, da HTML und JavaScript enger miteinander verschmolzen.
     
  
- Schwierigkeiten
+## Schwierigkeiten
  
 Zu Beginn hatten wir die Idee, die drei Radiosender der SRG – SRF 3, Couleur 3 und RSI 3 – miteinander zu vergleichen. Wir wollten beispielsweise herausfinden, ob auf Couleur 3 im Durchschnitt mehr französische Künstler gespielt werden als auf den beiden anderen Sendern. Dabei stiessen wir jedoch auf zwei Probleme. Zum einen konnten wir, trotz intensiver Internetrecherche, keine API für die Playlist von Couleur 3 finden. Zum anderen stellten wir beim Vergleich der Daten von SRF und RSI fest, dass diese unterschiedliche Informationen liefern und somit nur schwer vergleichbar sind. Da uns die deutsche Sprache am vertrautesten ist, haben wir uns entschieden, mit der API von SRF 3 zu arbeiten.
     
@@ -31,4 +37,15 @@ Obwohl das Hintergrundbild korrekt im CSS eingebunden war, wurde es auf dem Serv
 Manchmal kam es vor (leider häufiger als gewünscht), dass unsere Daten nicht korrekt auf den Server geladen wurden. Um zu überprüfen, ob das Problem an der Verknüpfung lag oder unsere Code-Änderungen tatsächlich nicht funktionierten, haben wir testweise ein Element im CSS auffällig eingefärbt. Wenn diese Änderung nicht übernommen wurde, wussten wir, dass das Problem woanders lag. In 90 % der Fälle konnten wir das Problem lösen, indem wir die Cookies in unserem Browser löschten.
     
 Um dem Nutzer zu zeigen, was ihn bei unserem Spiel erwartet, wollten wir ursprünglich eine Progress-Bar einfügen. Diese sollte jedoch nur der Information und Orientierung dienen und nicht wirklich funktional sein. Der Grund dafür war, dass es nicht vorgesehen ist, dass der User die gleiche Frage erneut beantworten kann, um sein Endergebnis zu verbessern. Eine funktionelle Progress-Bar wäre erst dann sinnvoll gewesen, wenn die Fragen erst am Ende ausgewertet würden. In diesem Fall hätte der User die Möglichkeit gehabt, seine Antworten vor der finalen Auswertung zu überdenken. Da unsere Fragen jedoch aufeinander aufbauen, ergab dies in unserem Fall keinen Sinn. Zunächst hatten wir das Problem, dass nach jeder Frage eine weitere Progress-Bar hinzugefügt wurde, sodass wir am Ende bei der letzten Frage drei Progress-Bars hatten. Ausserdem wurde die Progress-Bar erst bei der Auswertung angezeigt und nicht bereits während der jeweiligen Frage. Dies hing damit zusammen, dass wir die Progress-Bar ausserhalb des Fragecontainers darstellen wollten. Leider konnten wir nur das Problem der mehrfachen Progress-Bars lösen, nicht jedoch das Problem der verzögerten Anzeige. Aus diesem Grund haben wir uns, abweichend vom ursprünglichen Figma-Design, dazu entschieden, auf die Progress-Bar ganz zu verzichten.
+
+## Benutzte Ressourcen
+
+
+Hier ist eine überarbeitete und flüssiger formulierte Version des Textes:
+
+Als wir schliesslich genau wussten, was wir realisieren wollten, die Dateien korrekt verknüpft waren und die Datenbank eingerichtet war, half uns ChatGPT dabei, ein stabiles Grundgerüst aufzubauen. Besonders bei neuen Elementen, wie der Erstellung von HTML-Elementen mittels JavaScript, war diese Unterstützung für uns sehr wertvoll. Als es jedoch darum ging, die Daten aus der Datenbank zu holen und das Spiel damit zu gestalten, führte kein Weg daran vorbei, den Code selbst zu schreiben. So entstand das File questionnaire.php, das eine solide Grundlage schuf und dafür sorgte, dass unser Spiel zum ersten Mal wirklich funktionierte.
+
+Danach konzentrierten wir uns darauf, kleinere Schönheitsfehler zu beheben und den Code weiter zu optimieren. Zunächst versuchten wir, diese Anpassungen eigenständig vorzunehmen. Wenn uns dies nicht gelang, wandten wir uns an ChatGPT, der uns oft zur gewünschten Lösung führte. Bei einigen Problemen, wie der Umsetzung der Progress-Bar, konnte uns jedoch auch ChatGPT nicht weiterhelfen. Trotz vieler Versuche und verschiedener Ansätze mussten wir uns letztlich geschlagen geben und verzichteten auf die Progress-Bar.
+
+Zusätzlich nutzten wir ChatGPT zur Erklärung von Codestücken, was uns half, den Code besser zu verstehen und selbst Anpassungen vorzunehmen. Dadurch konnten wir unser Verständnis der Logik erheblich erweitern. Auch wenn wir einige Teile des Codes nicht komplett selbst geschrieben oder verändert haben, ermöglichte uns ChatGPT, diese trotzdem weitgehend zu verstehen.
  
